@@ -8,12 +8,17 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Benchmarking Visual Geolocalization",
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # Training parameters
-    parser.add_argument("--train_batch_size", type=int, default=72,
+    parser.add_argument("--train_batch_size", type=int, 
+                        # default=72,
+                        # default=12,
+                        default=4,
                         help="Number of triplets (query, pos, negs) in a batch. Each triplet consists of 12 images")
     parser.add_argument("--patience", type=int, default=10)
     parser.add_argument("--lr", type=float, default=0.0001, help="_")
     parser.add_argument("--optim", type=str, default="adam", help="_", choices=["adam", "sgd"])
-    parser.add_argument("--epochs_num", type=int, default=50,
+    parser.add_argument("--epochs_num", type=int, 
+                        # default=50,
+                        default=10,
                         help="number of epochs to train for")
     # parser.add_argument("--criterion", type=str, default='triplet', help='loss to be used',
     #                     choices=["triplet", "sare_ind", "sare_joint"])
@@ -37,7 +42,8 @@ def parse_arguments():
                         help="Output dimension of fully connected layer. If None, don't use a fully connected layer.")
     # Initialization parameters
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--foundation_model_path", type=str, default=None,
+    parser.add_argument("--foundation_model_path", type=str, 
+                        default="./backbone/dinov2_vitb14_pretrain.pth",
                         help="Path to load foundation model checkpoint.")
     parser.add_argument("--resume", type=str, default=None,
                         help="Path to load checkpoint from, for resuming training or testing.")
@@ -65,8 +71,12 @@ def parse_arguments():
     # parser.add_argument("--random_resized_crop", type=float, default=None, help="_")
     # parser.add_argument("--random_rotation", type=float, default=None, help="_")
     # Paths parameters
-    parser.add_argument("--eval_datasets_folder", type=str, default=None, help="Path with all datasets")
-    parser.add_argument("--eval_dataset_name", type=str, default="pitts30k", help="Relative path of the dataset")
+    parser.add_argument("--eval_datasets_folder", type=str, 
+                        default="../VPR-datasets-downloader/datasets", 
+                        help="Path with all datasets")
+    parser.add_argument("--eval_dataset_name", type=str, 
+                        default="pitts30k", 
+                        help="Relative path of the dataset")
     parser.add_argument("--pca_dataset_folder", type=str, default=None,
                         help="Path with images to be used to compute PCA (ie: pitts30k/images/train")
     parser.add_argument("--save_dir", type=str, default="default",

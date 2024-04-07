@@ -161,7 +161,7 @@ def test(args, eval_ds, model, test_method="hard_resize", pca=None):
             if test_method == "five_crops":  # Compute mean along the 5 crops
                 features = torch.stack(torch.split(features, 5)).mean(1)
             features = features.cpu().numpy()
-            if pca != None:
+            if pca is not None:
                 features = pca.transform(features)
             
             if test_method == "nearest_crop" or test_method == 'maj_voting':  # store the features of all 5 crops
